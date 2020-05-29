@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>                                 
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Frequency</title>
+    <!-- http://jqueryui.com/tabs/#mouseover -->
+    <link rel="stylesheet" href="static/jquery-ui.min.css">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+    
+    <script src="static/jquery-3.2.1.min.js"></script>
+    <script src="static/jquery-ui.min.js"></script>
+    
+    <script src="static/libs/plotly-latest.min.js"></script>
+    <script src="static/libs/gauge.min.js"></script>
+    
+    <script>
+      $( function() {
+        $( "#tabs" ).tabs();
+      } );
+    </script>
+
+
+    <script type="text/javascript" charset="utf-8">
+     $(document).ready(function() {
+      var x = new Array();
+      var y = new Array();
+      var trace;
+      var trace2;
+      var layout;
+      var gauge = new LinearGauge({
+          renderTo: 'canvasID4',
+          width: 750,
+          height: 250,
+          units: "Hz",
+          title: "Frequency",
+          minValue: 0,
+          maxValue: 1.8,
+          majorTicks: [
+              "0",
+              "0.2",              
+              "0.4",              
+              "0.6",              
+              "0.8",              
+              "1",              
+              "1.2",              
+              "1.4",              
+              "1.6",          
+              "1.8"
+          ],
+          minorTicks: 4,
+          strokeTicks: true,
+          ticksWidth: 15,
+          ticksWidthMinor: 7.5,       
+          highlights: [
+              {
+                  "from": 1.33,
+                  "to": 1.5,
+                  "color": "rgba(250, 50, 50, .99)"
+              },
+              {
+                  "from": 1.5,
+                  "to": 1.8,
+                  "color": "rgba(250, 0, 0, 1)"
+              },
+              {
+                  "from": 0,
+                  "to": 1.33,
+                  "color": "rgba(0, 0, 255, .3)"
+              }  
+          ],
+          colorPlate: "#2465c0",
+          colorPlateEnd: "#327ac0",
+          colorMajorTicks: "#ffe66a",
+          colorMinorTicks: "#ffe66a",
+          colorNumbers: "#eee",
+          colorTitle: "#eee",
+          colorUnits: "#eee",
+          borderShadowWidth: 0,
+          borderRadius: 10,
+          borders: false,
+          needleType: "arrow",
+          colorNeedle: "#222",
+          colorNeedleEnd: "",
+          colorBarProgress: "#327ac0",
+          colorBar: "#f5f5f5",
+          needleWidth: 3,
+          needleCircleSize: 7,
+          needleCircleOuter: true,
+          needleCircleInner: false,
+          animationDuration: 1500,
+          animationRule: "linear",
+          barStroke: 0,
+          barWidth: 8,
+          barBeginCircle: false
+      });
+      gauge.draw();
+      gauge.value = "0";
+      
+      var tmp1="";
+      var tmp2="";
+      var tmp3="";
+      var tmp4="";
+      var tmp5="";
+      var tmp6="";
+      var tmp7="";
+      var tmp8="";
+      var tmp9="";
+      var tmp10="";
+      var tmp11="";
+      var tmp12="";
+      var tmp13="";
+      var tmp14="";
+      var tmp15="";
+      var tmp16="";
+      var tmp17="";
+      var tmp18="";
+      var tmp19="";
+      var tmp20="";
+      
+      namespace = '/test';
+      var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+
+      socket.on('connect', function() {
+            socket.emit('my_event', {data: 'I\'m connected!', value: 1}); });
+
+      socket.on('my_response', function(msg) {
+        //console.log(msg.data);
+        tmp1=tmp2;
+        tmp2=tmp3;
+        tmp3=tmp4;
+        tmp4=tmp5;
+        tmp5=tmp6;
+        tmp6=tmp7;
+        tmp7=tmp8;
+        tmp8=tmp9;
+        tmp9=tmp10;
+        tmp10=tmp11;
+        tmp11=tmp12;
+        tmp12=tmp13;
+        tmp13=tmp14;
+        tmp14=tmp15;
+        tmp15=tmp16;
+        tmp16=tmp17;
+        tmp17=tmp18;
+        tmp18=tmp19;
+        tmp19=tmp20;
+        tmp20='#'+msg.count+' Frequency: '+msg.datafreq+' Hz'+'<br>';
+        $('#log1').html(tmp1);
+        $('#log2').html(tmp2);
+        $('#log3').html(tmp3);
+        $('#log4').html(tmp4);
+        $('#log5').html(tmp5);
+        $('#log6').html(tmp6);
+        $('#log7').html(tmp7);
+        $('#log8').html(tmp8);
+        $('#log9').html(tmp9);
+        $('#log10').html(tmp10);
+        $('#log11').html(tmp11);
+        $('#log12').html(tmp12);
+        $('#log13').html(tmp13);
+        $('#log14').html(tmp14);
+        $('#log15').html(tmp15);
+        $('#log16').html(tmp16);
+        $('#log17').html(tmp17);
+        $('#log18').html(tmp18);
+        $('#log19').html(tmp19);
+        $('#log20').html(tmp20);        
+                
+        gauge.value = msg.datafreq; 
+        
+        x.push(parseFloat(msg.count));
+        y.push(parseFloat(msg.datafreq));
+        trace = {
+            x: x,
+            y: y,
+            name: "Line Graph",
+            line: {
+            color:'rgb(105,27,22)',
+            shape: 'spline',
+            width:3
+            },
+        };
+        trace2 = {
+            x: x,
+            y: y,
+            name: "Bar graph",
+            type: 'bar',
+            marker: {
+            color:'rgb(0,153,0)'            
+            },            
+        };       
+        layout = {
+          title: 'Frequency',
+          xaxis: {
+              title: '---> Received samples',              
+          },
+          yaxis: {
+              title: '---> Frequency [Hz]',
+              //range: [0,100]
+          }
+        };
+        //console.log(trace);
+        var traces = new Array();
+        traces.push(trace,trace2);
+        Plotly.newPlot($('#plotdiv')[0], traces, layout); 
+        //addTraces 
+        
+      });
+
+      $('form#emit').submit(function(event) {
+          socket.emit('my_event', {value: $('#emit_value').val()});
+          return false; });
+      $('#buttonVal').click(function(event) {
+          //console.log($('#buttonVal').val());
+          socket.emit('click_event', {value: $('#buttonVal').val()});
+          return false; });
+      $('form#disconnect').submit(function(event) {
+          socket.emit('disconnect_request');
+          return false; });   
+      });
+    </script>
+  </head>
+  <body>
+    <style> 
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      color: white;
+      text-align: center;
+      background-color: black;
+      font-size:135%;
+    }   
+    
+    .footer p {
+        padding-top: 1px;
+    }
+    h1 {
+        text-align: center;
+        font-size:250%;
+    }
+    h2 {
+        text-align: center;
+        font-size:170%;        
+    }
+    h3 {
+        text-align: center;
+        font-size:110%;        
+        }
+    h4 {
+        text-align: center;
+        font-size:130%;        
+        }   
+    </style>
+</head>
+<body>   
+    <div id="tabs">
+      <ul>
+        <li><a href="#tabs-1">Numeric</a></li>
+        <li><a href="#tabs-2">Graph</a></li>
+        <li><a href="#tabs-3">Gauge</a></li>
+      </ul>
+      <div id="tabs-1">        
+        <h1>Values of frequency of stepper</h1>    
+       
+        <h4><div id="log1"></div>
+          <div id="log2"></div>
+          <div id="log3"></div>
+          <div id="log4"></div>
+          <div id="log5"></div>
+          <div id="log6"></div>
+          <div id="log7"></div>
+          <div id="log8"></div>
+          <div id="log9"></div>
+          <div id="log10"></div>
+          <div id="log11"></div>
+          <div id="log12"></div>
+          <div id="log13"></div>
+          <div id="log14"></div>
+          <div id="log15"></div>
+          <div id="log16"></div>
+          <div id="log17"></div>
+          <div id="log18"></div>
+          <div id="log19"></div>
+          <div id="log20"></div></h4>
+        <form method="get" action="/">
+            <button class="button1" type="submit">GENERAL</button>
+        </form>
+      </div>
+      <div id="tabs-2">       
+       <h1>Graph of frequency</h1>          
+        <center><div id="plotdiv" style="width:1300px;height:430px;"></div>
+        <h3>The graph shows the dependance of the frequency on the samples. Current value is showed by 2 types of graph:<p>1.Line graph 2.Bar graph</p></h3>
+      </div>
+      <div id="tabs-3">       
+       <h1>Linear analog dial of frequency</h1>        
+        <h1><canvas id="canvasID4"></canvas></h1>
+        <h3>The analog dial shows the current value of the frequency. <p>The critical value is from frequency 1.33 Hz.</p> The units are Hertz. </h3>
+      </div>
+    </div>
+    <div class="footer">© 2020 POIT<b>Roman Kmotorka</b> All Rights Reserved</div> 
+  </body>
+</html>
+
+

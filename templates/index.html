@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>General</title>
+   <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+   <script type="text/javascript" charset="utf-8">
+     $(document).ready(function() {
+        var tmp1="";
+        var tmp2="";
+        var tmp3="";
+        var tmp4="";
+        var tmp5="";
+        var tmp6="";
+        var tmp7="";
+        var tmp8="";
+        var tmp9="";
+        var tmp10="";
+        var tmp11="";
+        var tmp12="";
+        var tmp13="";
+        var tmp14="";
+        var tmp15="";
+        var tmp16="";
+        var tmp17="";
+        var tmp18="";
+        var tmp19="";
+        var tmp20="";
+      namespace = '/test';
+      var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+
+      socket.on('connect', function() {
+        socket.emit('my_event', {data: 'I\'m connected!', value: 1}); });
+
+      socket.on('my_response', function(msg) {
+        //console.log(msg.data);
+        tmp1=tmp2;
+        tmp2=tmp3;
+        tmp3=tmp4;
+        tmp4=tmp5;
+        tmp5=tmp6;
+        tmp6=tmp7;
+        tmp7=tmp8;
+        tmp8=tmp9;
+        tmp9=tmp10;
+        tmp10=tmp11;
+        tmp11=tmp12;
+        tmp12=tmp13;
+        tmp13=tmp14;
+        tmp14=tmp15;
+        tmp15=tmp16;
+        tmp16=tmp17;
+        tmp17=tmp18;
+        tmp18=tmp19;
+        tmp19=tmp20;
+        tmp20='#'+msg.count+' Rotational speed: '+msg.data+' RPM '+'| Angular velocity: '+msg.datahours+' rad/s '+'| Motor Speed: '+msg.datastep+' steps/s '+'| Frequency: '+msg.datafreq+' Hz'+'<br>';
+        $('#log1').html(tmp1);
+        $('#log2').html(tmp2);
+        $('#log3').html(tmp3);
+        $('#log4').html(tmp4);
+        $('#log5').html(tmp5);
+        $('#log6').html(tmp6);
+        $('#log7').html(tmp7);
+        $('#log8').html(tmp8);
+        $('#log9').html(tmp9);
+        $('#log10').html(tmp10);
+        $('#log11').html(tmp11);
+        $('#log12').html(tmp12);
+        $('#log13').html(tmp13);
+        $('#log14').html(tmp14);
+        $('#log15').html(tmp15);
+        $('#log16').html(tmp16);
+        $('#log17').html(tmp17);
+        $('#log18').html(tmp18);
+        $('#log19').html(tmp19);
+        $('#log20').html(tmp20);
+         });
+
+      $('form#emit').submit(function(event) {
+          socket.emit('my_event', {values: $('#emit_value').val()});
+          return false; });
+        
+      $('#buttonVal').click(function(event) {
+          //console.log($('#buttonVal').val());          
+          socket.emit('click_event', {values: $('#buttonVal').val()});
+          if ($(this).val() == "start") {
+            $(this).val("stop");            
+          }
+          else {
+            $(this).val("start");            
+          }
+          return false; });
+      $('#buttVal').click(function(event) {
+          //console.log($('#buttVal').val());          
+          socket.emit('db_event', {value: $('#buttVal').val()});
+          if ($(this).val() == "startdat") {
+            $(this).val("stopdat");
+            $(this).text("STOP ---> DB,FILE");
+          }
+          else {
+            $(this).val("startdat");
+            $(this).text("LOAD ---> DB,FILE");
+          }
+          return false; });
+      $('#startVal').click(function(event) {
+          //console.log($('#startVal').val());          
+          socket.emit('start_event', {value: $('#startVal').val()});
+          if ($(this).val() == "start") {
+            $(this).val("stop");            
+          }
+          else {
+            $(this).val("start");            
+          }
+          return false; });
+      $('#disconnect').click(function(event) {
+          socket.emit('disconnect_request');
+          if ($(this).val() == "disconnect") {
+            $(this).val("diconnected");
+            $(this).text("CLOSED");
+          }        
+          return false; });         
+      });
+    </script>
+    <style>    
+
+    .footer {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      color: white;
+      text-align: center;
+      background-color: black;
+      font-size:135%;
+    }    
+    .footer p {
+        padding-top: 1px;
+    }
+    h1 {
+        text-align: center;
+        font-size:250%;
+        color: white;
+        font-family: "montserrat",sans-serif;
+        }
+    h3 {
+        text-align: center;
+        font-size:110%;
+        color: rgb(50,0,0);
+        }       
+    
+    </style>
+ </head> 
+  <center><h1>Velocity values of stepper</h1>   
+  <h3><div id="log1"></div>
+          <div id="log2"></div>
+          <div id="log3"></div>
+          <div id="log4"></div>
+          <div id="log5"></div>
+          <div id="log6"></div>
+          <div id="log7"></div>
+          <div id="log8"></div>
+          <div id="log9"></div>
+          <div id="log10"></div>
+          <div id="log11"></div>
+          <div id="log12"></div>
+          <div id="log13"></div>
+          <div id="log14"></div>
+          <div id="log15"></div>
+          <div id="log16"></div>
+          <div id="log17"></div>
+          <div id="log18"></div>
+          <div id="log19"></div>
+          <div id="log20"></div></h3>  
+
+  <div class="footer">© 2020 POIT <b>Roman Kmotorka</b> All Rights Reserved</div>
+ </body>
+</html>
