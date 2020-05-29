@@ -27,7 +27,8 @@ app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
 thread_lock = Lock()
-
+connected = 0
+begin=0
 current_time=0
 today=0
 
@@ -36,7 +37,7 @@ def background_thread(args):
     count = 1    
     dataList = []    
     while True:
-
+        if begin:
             ser=serial.Serial('/dev/ttyS1', 9600)
             ser.baudrate=9600        
             read_ser=ser.read(2)
@@ -51,8 +52,15 @@ def background_thread(args):
                 step=0
                 freq=0
 #             count += 1
-         
-              
+            if args:          
+              dbV = dict(args).get('db_value')
+            else:          
+              dbV = 'nieco'         
+            if connected:
+                if args:          
+                    dbV = args.get('db_value')
+                else:          
+                    dbV = 'nieco'  
                 print(args)
                 
     
