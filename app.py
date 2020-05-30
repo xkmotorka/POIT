@@ -35,7 +35,66 @@ today=0
 def background_thread(args):    
     argument = 0
     count = 1    
-    dataList = []    
+    dataList = []
+    db = MySQLdb.connect(host=myhost,user=myuser,passwd=mypasswd,db=mydb)
+    
+    maxRS=0
+    minRS=100
+    criticalRS=0
+    
+    sumRS=0
+    maxAV=0
+    minAV=10.47
+    criticalAV=0
+    sumAV=0
+    maxMS=0
+    minMS=166.67
+    criticalMS=0
+    sumMS=0
+    maxFR=0
+    minFR=1.67
+    criticalFR=0
+    sumFR=0    
+    fo = open("static/files/Rotational_speed.txt","a+")
+    fo2 = open("static/files/Angular_velocity.txt","a+")
+    fo3 = open("static/files/Motor_speed.txt","a+")
+    fo4 = open("static/files/Frequency.txt","a+")
+    fo1515 = open("static/files/ALL.txt","a+")
+    file1='/home/pi/POIT_zadanie/static/files/Rotational_speed.txt'
+    file2='/home/pi/POIT_zadanie/static/files/Angular_velocity.txt'
+    file3='/home/pi/POIT_zadanie/static/files/Motor_speed.txt'
+    file4='/home/pi/POIT_zadanie/static/files/Frequency.txt'
+    file1515='/home/pi/POIT_zadanie/static/files/ALL.txt'
+    str2 = "\r"
+    str22 = "\r"
+    str222 = "\r"
+    str2222 = "\r"
+    str1515 = "\r\n"
+    if os.stat(file1).st_size==0:
+        nadpis="Max Rotational Speed = 99 RPM\nCritical value = 80 RPM\nUnits: RPM" 
+        str1 = str(nadpis)
+        str3 = str1 + str2    
+        fo.write(str3)
+        fo.close    
+    if os.stat(file2).st_size==0:
+        nadpis2="Max Angular Velocity = 10.37 rad/s\nCritical value = 8.38 rad/s\nUnits: rad/s" 
+        str11 = str(nadpis2)
+        str33 = str11 + str22    
+        fo2.write(str33)
+        fo2.close    
+    if os.stat(file3).st_size==0:
+        nadpis3="Max Motor Speed = 165 steps/s\nCritical value = 133.33 steps/s\nUnits: steps/s" 
+        str111 = str(nadpis3)
+        str333 = str111 + str222    
+        fo3.write(str333)
+        fo3.close    
+    if os.stat(file4).st_size==0:
+        nadpis4="Max Frequency = 1.59 HZ\nCritical value = 1.33 Hz\nUnits: Hz" 
+        str1111 = str(nadpis4)
+        str3333 = str1111 + str2222    
+        fo4.write(str3333)
+        fo4.close
+        
     while True:
         if begin:
             ser=serial.Serial('/dev/ttyS1', 9600)
@@ -55,15 +114,278 @@ def background_thread(args):
             if args:          
               dbV = dict(args).get('db_value')
             else:          
-              dbV = 'nieco'         
+              dbV = 'nieco'
+              
+            if count == 21 or count == 41 or count == 61 or count == 81 or count == 101 or count == 121 or count == 141 or count == 161 or count == 181 or count == 201 or count == 221 or count == 241 or count == 261 or count == 281 or count == 301:
+                dataDict600 = {
+                "Max achieved rotational speed from the last 20 samples": int(maxRS)                     
+                }
+                dataDict601 = {
+                "Min achieved rotational speed from the last 20 samples": int(minRS)                                   
+                }
+                dataDict602 = {
+                "Average rotational speed from the last 20 samples": float(round((sumRS/20),2))           
+                }
+                dataDict603 = {
+                "Number of critical values from the last 20 samples": int(criticalRS)                        
+                }
+             
+                fuj600 = str(dataDict600).replace("'", "\"")       
+                str600 = str(fuj600)
+                str3600 = str600 + str2
+                
+                fuj601 = str(dataDict601).replace("'", "\"")       
+                str601 = str(fuj601)
+                str3601 = str601 + str2
+                
+                fuj602 = str(dataDict602).replace("'", "\"")       
+                str602 = str(fuj602)
+                str3602 = str602 + str2
+                
+                fuj603 = str(dataDict603).replace("'", "\"")       
+                str603 = str(fuj603)
+                str3603 = str603 + str2
+                
+                fo = open("static/files/Rotational_speed.txt","a+")
+                fo.write(str3600)
+                fo.write(str3601)
+                fo.write(str3602)
+                fo.write(str3603)
+                fo.close
+                
+                dataDict700 = {
+                "Max achieved angular velocity from the last 20 samples": float(round((maxAV),2))                      
+                }
+                dataDict701 = {
+                "Min achieved angular velocity from the last 20 samples": float(round((minAV),2))                                    
+                }
+                dataDict702 = {
+                "Average angular velocity from the last 20 samples": float(round((sumAV/20),2))        
+                }
+                dataDict703 = {
+                "Number of critical values from the last 20 samples": int(criticalAV)   
+                } 
+             
+                fuj700 = str(dataDict700).replace("'", "\"")       
+                str700 = str(fuj700)
+                str3700 = str700 + str2
+                
+                fuj701 = str(dataDict701).replace("'", "\"")       
+                str701 = str(fuj701)
+                str3701 = str701 + str2
+                
+                fuj702 = str(dataDict702).replace("'", "\"")       
+                str702 = str(fuj702)
+                str3702 = str702 + str2
+                
+                fuj703 = str(dataDict703).replace("'", "\"")       
+                str703 = str(fuj703)
+                str3703 = str703 + str2
+                
+                fo2 = open("static/files/Angular_velocity.txt","a+")
+                fo2.write(str3700)
+                fo2.write(str3701)
+                fo2.write(str3702)
+                fo2.write(str3703)
+                fo2.close
+                
+                dataDict800 = {
+                "Max achieved motor speed from the last 20 samples": float(round((maxMS),2))                      
+                }
+                dataDict801 = {
+                "Min achieved motor speed from the last 20 samples": float(round((minMS),2))                                    
+                }
+                dataDict802 = {
+                "Average motor speed from the last 20 samples": float(round((sumMS/20),2))   
+                }
+                dataDict803 = {
+                "Number of critical values from the last 20 samples": int(criticalMS)                                        
+                } 
+             
+                fuj800 = str(dataDict800).replace("'", "\"")       
+                str800 = str(fuj800)
+                str3800 = str800 + str2
+                
+                fuj801 = str(dataDict801).replace("'", "\"")       
+                str801 = str(fuj801)
+                str3801 = str801 + str2
+                
+                fuj802 = str(dataDict802).replace("'", "\"")       
+                str802 = str(fuj802)
+                str3802 = str802 + str2
+                
+                fuj803 = str(dataDict803).replace("'", "\"")       
+                str803 = str(fuj803)
+                str3803 = str803 + str2
+                
+                fo3 = open("static/files/Motor_speed.txt","a+")
+                fo3.write(str3800)
+                fo3.write(str3801)
+                fo3.write(str3802)
+                fo3.write(str3803)
+                fo3.close
+                
+                dataDict900 = {
+                "Max achieved frequency from the last 20 samples": float(round((maxFR),2))                   
+                }
+                dataDict901 = {
+                "Min achieved frequency from the last 20 samples": float(round((minFR),2))                                     
+                }
+                dataDict902 = {
+                "Average frequency from the last 20 samples": float(round((sumFR/20),2))      
+                }
+                dataDict903 = {
+                "Number of critical values from the last 20 samples": int(criticalFR)                        
+                }
+             
+                fuj900 = str(dataDict900).replace("'", "\"")       
+                str900 = str(fuj900)
+                str3900 = str900 + str2
+                
+                fuj901 = str(dataDict901).replace("'", "\"")       
+                str901 = str(fuj901)
+                str3901 = str901 + str2
+                
+                fuj902 = str(dataDict902).replace("'", "\"")       
+                str902 = str(fuj902)
+                str3902 = str902 + str2
+                
+                fuj903 = str(dataDict903).replace("'", "\"")       
+                str903 = str(fuj903)
+                str3903 = str903 + str2
+                
+                fo4 = open("static/files/Frequency.txt","a+")
+                fo4.write(str3900)
+                fo4.write(str3901)
+                fo4.write(str3902)
+                fo4.write(str3903)
+                fo4.close          
+                
+                
+                maxRS=0
+                minRS=100
+                criticalRS=0
+                sumRS=0
+                maxAV=0
+                minAV=10.47
+                criticalAV=0
+                sumAV=0
+                maxMS=0
+                minMS=166.67
+                criticalMS=0
+                sumMS=0
+                maxFR=0
+                minFR=1.67
+                criticalFR=0
+                sumFR=0
+                
             if connected:
                 if args:          
                     dbV = args.get('db_value')
                 else:          
                     dbV = 'nieco'  
+                if float(read_ser) > float(maxRS):
+                    maxRS = read_ser
+                if float(read_ser) < float(minRS):
+                    minRS = read_ser
+                if float(read_ser) >= 80:            
+                    criticalRS+=1
+                    
+                if float(read_ser2) > float(maxAV):
+                    maxAV = read_ser2
+                if float(read_ser2) < float(minAV):
+                    minAV = read_ser2
+                if float(read_ser2) >= 8.38:
+                    criticalAV+=1
+                    
+                if float(step) > float(maxMS):
+                    maxMS = step
+                if float(step) < float(minMS):
+                    minMS = step
+                if float(step) >= 133.33:
+                    criticalMS+=1
+                
+                if float(freq) > float(maxFR):
+                    maxFR = freq
+                if float(freq) < float(minFR):
+                    minFR = freq
+                if float(freq) >= 1.33:
+                    criticalFR+=1
+                sumRS+=int(read_ser)
+                sumAV+=float(read_ser2)
+                sumMS+=float(step)
+                sumFR+=float(freq)           
+              
                 print(args)
                 
-    
+                if dbV == 'startdat':
+                  dataDict1515 = {
+                    "No": count, 
+                    "RS": int(read_ser),
+                    "AV": round(float(read_ser2),2),
+                    "MS": round(float(step),2),
+                    "FR": round(float(freq),2)
+                    }
+                  dataList.append(dataDict1515)
+                else:
+                  if len(dataList)>0:                
+                    fuj1515 = str(dataList).replace("'", "\"")
+                    print fuj1515                
+                    str1516 = str(fuj1515)
+                    str1517 = str1516 + str1515
+                    fo1515 = open("static/files/ALL.txt","a+")
+                    fo1515.write(str1517)
+                    fo1515.close
+                    cursor = db.cursor()
+                    cursor.execute("SELECT MAX(id) FROM graph")
+                    maxid = cursor.fetchone()
+                    cursor.execute("INSERT INTO graph (id, hodnoty) VALUES (%s, %s)", (maxid[0] + 1, fuj1515))
+                    db.commit()
+                  dataList = []            
+            
+                dataDict = {
+                    "Rotational Speed": int(read_ser),
+                    "Sample No.": count              
+                }     
+                fuj = str(dataDict).replace("'", "\"")       
+                str1 = str(fuj)
+                str3 = str1 + str2
+                fo = open("static/files/Rotational_speed.txt","a+")
+                fo.write(str3)
+                fo.close
+                
+                dataDict2 = {
+                    "Angular Velocity": round(float(read_ser2),2),
+                    "Sample No.": count              
+                }        
+                fuj2 = str(dataDict2).replace("'", "\"")
+                str11 = str(fuj2)
+                str33 = str11 + str22
+                fo2 = open("static/files/Angular_velocity.txt","a+")
+                fo2.write(str33)
+                fo2.close
+                
+                dataDict3 = {
+                    "Sample No.": count,
+                    "Motor Speed": round(float(step),2)                        
+                }          
+                fuj3 = str(dataDict3).replace("'", "\"")
+                str111 = str(fuj3)
+                str333 = str111 + str222
+                fo3 = open("static/files/Motor_speed.txt","a+")
+                fo3.write(str333)
+                fo3.close
+                
+                dataDict4 = {
+                    "Frequency": round(float(freq),2),
+                    "Sample No.": count            
+                }               
+                fuj4 = str(dataDict4).replace("'", "\"")
+                str1111 = str(fuj4)
+                str3333 = str1111 + str2222
+                fo4 = open("static/files/Frequency.txt","a+")
+                fo4.write(str3333)
+                fo4.close           
         
                 socketio.emit('my_response',
                           {'data': float(read_ser), 'datahours': float(round((read_ser2),2)),'datastep': float(round((step),2)),'datafreq': float(round((freq),2)),'count': count},
@@ -102,6 +424,32 @@ def tabs2():
 def tabs3():
     return render_template('tabsfr.html', async_mode=socketio.async_mode)
 
+@app.route('/tabs')
+def tabs4():
+    return render_template('tabs.html', async_mode=socketio.async_mode)
+
+@app.route('/db')
+def db():
+  db = MySQLdb.connect(host=myhost,user=myuser,passwd=mypasswd,db=mydb)
+  cursor = db.cursor()
+  cursor.execute('''SELECT  hodnoty FROM  graph''')
+  rv = cursor.fetchall()
+  return str(rv)    
+
+@app.route('/dbdata/<string:num>', methods=['GET', 'POST'])
+def dbdata(num):
+  db = MySQLdb.connect(host=myhost,user=myuser,passwd=mypasswd,db=mydb)
+  cursor = db.cursor()
+  print num
+  cursor.execute("SELECT hodnoty FROM  graph WHERE id=%s", num)
+  rv = cursor.fetchone()
+  return str(rv[0])
+
+@app.route('/read/<string:num>')
+def readmyfile(num):
+    fo1515 = open("static/files/ALL.txt","r")
+    rows = fo1515.readlines()
+    return rows[int(num)-1]
 
 @socketio.on('my_event', namespace='/test')
 def test_message(message5):
