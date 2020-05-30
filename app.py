@@ -1,5 +1,6 @@
 from threading import Lock
 from datetime import date
+import datetime
 from flask import Flask, render_template, session, request, jsonify, url_for
 from flask_socketio import SocketIO, emit, disconnect  
 import random
@@ -31,9 +32,13 @@ connected = 0
 begin=0
 current_time=0
 today=0
+datab=5
+a='#'
+b='\n'
+i=1
+x=0
 
 def background_thread(args):    
-    argument = 0
     count = 1    
     dataList = []
     db = MySQLdb.connect(host=myhost,user=myuser,passwd=mypasswd,db=mydb)
@@ -100,6 +105,11 @@ def background_thread(args):
             ser=serial.Serial('/dev/ttyS1', 9600)
             ser.baudrate=9600        
             read_ser=ser.read(2)
+            if connected:
+                global i
+                if i>0:
+                    print "#1"
+                    i=0
             print(read_ser)            
             try:
                 read_ser2=float(read_ser)*(2*math.pi/60)        
@@ -130,20 +140,20 @@ def background_thread(args):
                 "Number of critical values from the last 20 samples": int(criticalRS)                        
                 }
              
-                fuj600 = str(dataDict600).replace("'", "\"")       
-                str600 = str(fuj600)
+                prem600 = str(dataDict600).replace("'", "\"")       
+                str600 = str(prem600)
                 str3600 = str600 + str2
                 
-                fuj601 = str(dataDict601).replace("'", "\"")       
-                str601 = str(fuj601)
+                prem601 = str(dataDict601).replace("'", "\"")       
+                str601 = str(prem601)
                 str3601 = str601 + str2
                 
-                fuj602 = str(dataDict602).replace("'", "\"")       
-                str602 = str(fuj602)
+                prem602 = str(dataDict602).replace("'", "\"")       
+                str602 = str(prem602)
                 str3602 = str602 + str2
                 
-                fuj603 = str(dataDict603).replace("'", "\"")       
-                str603 = str(fuj603)
+                prem603 = str(dataDict603).replace("'", "\"")       
+                str603 = str(prem603)
                 str3603 = str603 + str2
                 
                 fo = open("static/files/Rotational_speed.txt","a+")
@@ -166,20 +176,20 @@ def background_thread(args):
                 "Number of critical values from the last 20 samples": int(criticalAV)   
                 } 
              
-                fuj700 = str(dataDict700).replace("'", "\"")       
-                str700 = str(fuj700)
+                prem700 = str(dataDict700).replace("'", "\"")       
+                str700 = str(prem700)
                 str3700 = str700 + str2
                 
-                fuj701 = str(dataDict701).replace("'", "\"")       
-                str701 = str(fuj701)
+                prem701 = str(dataDict701).replace("'", "\"")       
+                str701 = str(prem701)
                 str3701 = str701 + str2
                 
-                fuj702 = str(dataDict702).replace("'", "\"")       
-                str702 = str(fuj702)
+                prem702 = str(dataDict702).replace("'", "\"")       
+                str702 = str(prem702)
                 str3702 = str702 + str2
                 
-                fuj703 = str(dataDict703).replace("'", "\"")       
-                str703 = str(fuj703)
+                prem703 = str(dataDict703).replace("'", "\"")       
+                str703 = str(prem703)
                 str3703 = str703 + str2
                 
                 fo2 = open("static/files/Angular_velocity.txt","a+")
@@ -202,20 +212,20 @@ def background_thread(args):
                 "Number of critical values from the last 20 samples": int(criticalMS)                                        
                 } 
              
-                fuj800 = str(dataDict800).replace("'", "\"")       
-                str800 = str(fuj800)
+                prem800 = str(dataDict800).replace("'", "\"")       
+                str800 = str(prem800)
                 str3800 = str800 + str2
                 
-                fuj801 = str(dataDict801).replace("'", "\"")       
-                str801 = str(fuj801)
+                prem801 = str(dataDict801).replace("'", "\"")       
+                str801 = str(prem801)
                 str3801 = str801 + str2
                 
-                fuj802 = str(dataDict802).replace("'", "\"")       
-                str802 = str(fuj802)
+                prem802 = str(dataDict802).replace("'", "\"")       
+                str802 = str(prem802)
                 str3802 = str802 + str2
                 
-                fuj803 = str(dataDict803).replace("'", "\"")       
-                str803 = str(fuj803)
+                prem803 = str(dataDict803).replace("'", "\"")       
+                str803 = str(prem803)
                 str3803 = str803 + str2
                 
                 fo3 = open("static/files/Motor_speed.txt","a+")
@@ -238,20 +248,20 @@ def background_thread(args):
                 "Number of critical values from the last 20 samples": int(criticalFR)                        
                 }
              
-                fuj900 = str(dataDict900).replace("'", "\"")       
-                str900 = str(fuj900)
+                prem900 = str(dataDict900).replace("'", "\"")       
+                str900 = str(prem900)
                 str3900 = str900 + str2
                 
-                fuj901 = str(dataDict901).replace("'", "\"")       
-                str901 = str(fuj901)
+                prem901 = str(dataDict901).replace("'", "\"")       
+                str901 = str(prem901)
                 str3901 = str901 + str2
                 
-                fuj902 = str(dataDict902).replace("'", "\"")       
-                str902 = str(fuj902)
+                prem902 = str(dataDict902).replace("'", "\"")       
+                str902 = str(prem902)
                 str3902 = str902 + str2
                 
-                fuj903 = str(dataDict903).replace("'", "\"")       
-                str903 = str(fuj903)
+                prem903 = str(dataDict903).replace("'", "\"")       
+                str903 = str(prem903)
                 str3903 = str903 + str2
                 
                 fo4 = open("static/files/Frequency.txt","a+")
@@ -259,9 +269,8 @@ def background_thread(args):
                 fo4.write(str3901)
                 fo4.write(str3902)
                 fo4.write(str3903)
-                fo4.close          
-                
-                
+                fo4.close 
+     
                 maxRS=0
                 minRS=100
                 criticalRS=0
@@ -316,9 +325,9 @@ def background_thread(args):
                 sumMS+=float(step)
                 sumFR+=float(freq)           
               
-                print(args)
+#                 print(args)
                 
-                if dbV == 'startdat':
+                if datab == 0:
                   dataDict1515 = {
                     "No": count, 
                     "RS": int(read_ser),
@@ -329,9 +338,9 @@ def background_thread(args):
                   dataList.append(dataDict1515)
                 else:
                   if len(dataList)>0:                
-                    fuj1515 = str(dataList).replace("'", "\"")
-                    print fuj1515                
-                    str1516 = str(fuj1515)
+                    prem1515 = str(dataList).replace("'", "\"")
+                    print prem1515                
+                    str1516 = str(prem1515)
                     str1517 = str1516 + str1515
                     fo1515 = open("static/files/ALL.txt","a+")
                     fo1515.write(str1517)
@@ -339,7 +348,7 @@ def background_thread(args):
                     cursor = db.cursor()
                     cursor.execute("SELECT MAX(id) FROM graph")
                     maxid = cursor.fetchone()
-                    cursor.execute("INSERT INTO graph (id, hodnoty) VALUES (%s, %s)", (maxid[0] + 1, fuj1515))
+                    cursor.execute("INSERT INTO graph (id, hodnoty) VALUES (%s, %s)", (maxid[0] + 1, prem1515))
                     db.commit()
                   dataList = []            
             
@@ -347,8 +356,8 @@ def background_thread(args):
                     "Rotational Speed": int(read_ser),
                     "Sample No.": count              
                 }     
-                fuj = str(dataDict).replace("'", "\"")       
-                str1 = str(fuj)
+                prem = str(dataDict).replace("'", "\"")       
+                str1 = str(prem)
                 str3 = str1 + str2
                 fo = open("static/files/Rotational_speed.txt","a+")
                 fo.write(str3)
@@ -358,8 +367,8 @@ def background_thread(args):
                     "Angular Velocity": round(float(read_ser2),2),
                     "Sample No.": count              
                 }        
-                fuj2 = str(dataDict2).replace("'", "\"")
-                str11 = str(fuj2)
+                prem2 = str(dataDict2).replace("'", "\"")
+                str11 = str(prem2)
                 str33 = str11 + str22
                 fo2 = open("static/files/Angular_velocity.txt","a+")
                 fo2.write(str33)
@@ -369,8 +378,8 @@ def background_thread(args):
                     "Sample No.": count,
                     "Motor Speed": round(float(step),2)                        
                 }          
-                fuj3 = str(dataDict3).replace("'", "\"")
-                str111 = str(fuj3)
+                prem3 = str(dataDict3).replace("'", "\"")
+                str111 = str(prem3)
                 str333 = str111 + str222
                 fo3 = open("static/files/Motor_speed.txt","a+")
                 fo3.write(str333)
@@ -380,8 +389,8 @@ def background_thread(args):
                     "Frequency": round(float(freq),2),
                     "Sample No.": count            
                 }               
-                fuj4 = str(dataDict4).replace("'", "\"")
-                str1111 = str(fuj4)
+                prem4 = str(dataDict4).replace("'", "\"")
+                str1111 = str(prem4)
                 str3333 = str1111 + str2222
                 fo4 = open("static/files/Frequency.txt","a+")
                 fo4.write(str3333)
@@ -391,22 +400,14 @@ def background_thread(args):
                           {'data': float(read_ser), 'datahours': float(round((read_ser2),2)),'datastep': float(round((step),2)),'datafreq': float(round((freq),2)),'count': count},
                           namespace='/test')
                 count += 1
+                print('%s%s%d'%(b,a,count))  
     #             print(read_ser)
         db.close
         socketio.sleep(2) 
 
-
 @app.route('/')
 def index():
-    return render_template('index.html', async_mode=socketio.async_mode)
-       
-@app.route('/graphlive', methods=['GET', 'POST'])
-def graphlive():
-    return render_template('graphlive.html', async_mode=socketio.async_mode)
-
-@app.route('/gauge', methods=['GET', 'POST'])
-def gauge():
-    return render_template('gauge.html', async_mode=socketio.async_mode)
+    return render_template('index.html', async_mode=socketio.async_mode)       
 
 @app.route('/tabsrs')
 def tabs():
@@ -459,8 +460,14 @@ def test_message(message5):
 
 @socketio.on('db_event', namespace='/test')
 def db_message(message):   
-    session['db_value'] = message['value']  
-
+#     session['db_value'] = message['value']
+    global datab
+    if datab:        
+        datab = 0
+        print("\nLOADING DATA")        
+    else:
+        datab = 1
+        print("\nDATA LOADED AND WRITTEN TO THE FILE AND DATABASE")
 
 @socketio.on('disconnect_request', namespace='/test')
 def disconnect_request():
@@ -495,6 +502,9 @@ def db3_message(message3):
     else:
         begin = 1
         print("\nCONNECTED")
+        today=date.today()
+        x=datetime.datetime.now()
+        print x.strftime("%A"),x.strftime("%d/%m/%y"),x.strftime("%X"), "\n"
 
 @socketio.on('disconnect', namespace='/test')
 def test_disconnect():

@@ -118,8 +118,26 @@
             $(this).val("diconnected");
             $(this).text("CLOSED");
           }        
-          return false; });         
+          return false; });      
       });
+       function startTime(){
+          var today = new Date();
+          var h = today.getHours();
+          var m = today.getMinutes();
+          var s = today.getSeconds();
+          var y = today.getFullYear();
+          var mo = today.getMonth()+1;
+          var d = today.getDate();  
+          m = checkTime(m);
+          s = checkTime(s);
+          document.getElementById('txt').innerHTML= h + ":" + m + ":" + s;
+          document.getElementById('date').innerHTML= d + "/" + mo + "/" + y;   
+          var t = setTimeout(startTime, 500);
+          }
+      function checkTime(i) {
+          if(i<10) {i= "0" +i};
+          return i;
+          }
     </script>
     <style>    
 
@@ -157,12 +175,100 @@
         background-image: linear-gradient(to right,#141E30 0%,#243B55 90%);
         font-weight: bold;                
         }
+        .button10 {        
+        color:white;
+        background-color: rgb(225,60,60);
+        padding: 15px 47px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: "montserrat",sans-serif;
+        background-image: linear-gradient(to right,#870000 0%,#190A05 100%);
+        font-weight: bold;
+        position: absolute;
+        bottom : 80px;
+        left: 200px;                
+        }
+    .button11 {        
+        color:white;
+        background-color: rgb(225,60,60);
+        padding: 15px 32px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: "montserrat",sans-serif;
+        background-image: linear-gradient(to right,#870000 0%,#190A05 100%);
+        font-weight: bold;
+        position: absolute;
+        bottom : 80px;
+        left: 450px;                
+        }
+
+    .button12 {        
+        color:white;
+        background-color: rgb(225,60,60);
+        padding: 15px 32px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: "montserrat",sans-serif;
+        background-image: linear-gradient(to right,#870000 0%,#190A05 100%);
+        font-weight: bold;
+        position: absolute;
+        bottom : 80px;
+        left: 700px;                
+        }
+   .button13 {        
+        color:white;
+        background-color: rgb(225,60,60);
+        padding: 15px 55px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: "montserrat",sans-serif;
+        background-image: linear-gradient(to right,#870000 0%,#190A05 100%);
+        font-weight: bold;
+        position: absolute;
+        bottom : 80px;
+        left: 950px;                
+        }
+    .button14 {        
+        color:white;
+        background-color: rgb(225,60,60);
+        padding: 15px 55px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: "montserrat",sans-serif;
+        background-image: linear-gradient(to right,#870000 0%,#190A05 100%);
+        font-weight: bold;
+        position: absolute;
+        bottom : 80px;
+        left: 1200px;                
+        }
     body {        
         background-position:center;
         background-attachment:fixed;
         background-repeat:no-repeat;
         background-size: 100% 100%;
         }
+    .body2 {        
+        font-size: 220%;
+        position: absolute;
+        top : 30px;
+        left: 1420px;
+        color: white;
+        font-family: "montserrat",sans-serif;
+        font-weight: bold;
+        border-style: double;
+        border-radius: 5px;
+        }
+     .body3 {        
+        font-size: 220%;
+        position: absolute;
+        top : 30px;
+        right: 1410px;
+        color: white;
+        font-family: "montserrat",sans-serif;
+        font-weight: bold;
+        border-style: double;
+        border-radius: 5px;
+        } 
     
     </style>
  </head>
@@ -172,6 +278,10 @@
   <button class="button100" id="buttonVal" type="submit" value="start">START/STOP MONITORING</button>  
   <button class="button100" id="buttVal" type="submit" value="startdat">LOAD ---> DB,FILE</button>   
   <button class="button100" id="disconnect" type="submit" value="disconnect">CLOSE</button> 
+  <body onload="startTime()"</body>
+  <div class="body2" id="txt"></div>
+  <body onload="startTime()"</body>
+  <div class="body3" id="date"></div>
   <h3><div id="log1"></div>
           <div id="log2"></div>
           <div id="log3"></div>
@@ -191,7 +301,22 @@
           <div id="log17"></div>
           <div id="log18"></div>
           <div id="log19"></div>
-          <div id="log20"></div></h3>  
+          <div id="log20"></div></h3>
+  <form method="get" action="/tabs">
+        <button class="button10" type="submit">FILE, DATABASE</button>
+  </form>
+  <form method="get" action="/tabsrs">
+        <button class="button11" type="submit">ROTATIONAL SPEED</button>
+  </form>
+  <form method="get" action="/tabsav">
+        <button class="button12" type="submit">ANGULAR VELOCITY</button>
+  </form>
+  <form method="get" action="/tabsms">
+        <button class="button13" type="submit">MOTOR SPEED</button>
+  </form>
+  <form method="get" action="/tabsfr">
+        <button class="button14" type="submit">FREQUENCY</button>
+  </form>
 
   <div class="footer">© 2020 POIT <b>Roman Kmotorka</b> All Rights Reserved</div>
  </body>
