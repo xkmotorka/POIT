@@ -253,8 +253,7 @@
         right:30px;
         }
     .button1 {
-        color:white;
-        background-color: rgb(225,60,60);
+        color:white;        
         padding: 20px 50px;
         font-size: 16px;
         cursor: pointer;
@@ -265,6 +264,22 @@
         top: 100px;
         left: 700px;
         )
+        }
+    .button101 {        
+        background-image: linear-gradient(to right,#000000 0%,#434343 100%); 
+        color: white;
+        border: 2px solid #FFFFFF;
+        )
+        }
+    .button101:hover {
+        box-shadow: 0 5px 10px rgba(0,0 , 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.19);
+        color:black;
+        background-image: linear-gradient(to right,#FFFFFF 0%,#FFFFFF 100%);
+        border: 2px solid #000000;
+        )
+        }
+    .button101:active {
+        transform: translateY(5px);
         }
     </style>
 </head>
@@ -301,7 +316,7 @@
           <div id="log19"></div>
           <div id="log20"></div></h4>
         <form method="get" action="/">
-            <button class="button1" type="submit">GENERAL</button>
+            <button class="button1 button101" type="submit">GENERAL</button>
         </form>
       </div>
       <div id="tabs-2">
@@ -311,7 +326,7 @@
         <center><div id="plotdiv" style="width:1300px;height:430px;"></div>
         <h3>The graph shows the dependance of the angular velocity on the samples. Current value is showed by 2 types of graph:<p>1.Line graph 2.Bar graph</p></h3>
         <form method="get" action="/">
-            <button class="button1" type="submit">GENERAL</button>
+            <button class="button1 button101" type="submit">GENERAL</button>
         </form>
       </div>
       <div id="tabs-3">
@@ -321,7 +336,7 @@
         <h1><canvas id="canvasID2"></canvas></h1>
         <h3>The analog dial shows the current value of the angular velocity. <p>The critical value is from angular velocity 8.38 rad/s.</p>The units are radians per second.</h3>
         <form method="get" action="/">
-            <button class="button1" type="submit">GENERAL</button>
+            <button class="button1 button101" type="submit">GENERAL</button>
         </form>
       </div>
     </div>

@@ -35,7 +35,6 @@ today=0
 datab=5
 a='#'
 b='\n'
-i=1
 x=0
 
 def background_thread(args):    
@@ -106,10 +105,7 @@ def background_thread(args):
             ser.baudrate=9600        
             read_ser=ser.read(2)
             if connected:
-                global i
-                if i>0:
-                    print "#1"
-                    i=0
+                print('%s%s%d'%(b,a,count))   
             print(read_ser)            
             try:
                 read_ser2=float(read_ser)*(2*math.pi/60)        
@@ -320,7 +316,7 @@ def background_thread(args):
                     minFR = freq
                 if float(freq) >= 1.33:
                     criticalFR+=1
-                sumRS+=int(read_ser)
+                sumRS+=float(read_ser)
                 sumAV+=float(read_ser2)
                 sumMS+=float(step)
                 sumFR+=float(freq)           
@@ -399,8 +395,7 @@ def background_thread(args):
                 socketio.emit('my_response',
                           {'data': float(read_ser), 'datahours': float(round((read_ser2),2)),'datastep': float(round((step),2)),'datafreq': float(round((freq),2)),'count': count},
                           namespace='/test')
-                count += 1
-                print('%s%s%d'%(b,a,count))  
+                count += 1                
     #             print(read_ser)
         db.close
         socketio.sleep(2) 

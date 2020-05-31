@@ -166,18 +166,33 @@
         color: rgb(50,0,0);
         }
     .button100{        
-        color:white;
-        background-color: rgb(225,60,60);
+        color:black;        
         padding: 15px 32px;
         font-size: 16px;
         cursor: pointer;
         font-family: "montserrat",sans-serif;
-        background-image: linear-gradient(to right,#141E30 0%,#243B55 90%);
-        font-weight: bold;                
+        background-image: linear-gradient(to right,#FFFFFF 0%,#FFFFFF 100%);
+        font-weight: bold;
+        transition-duration: 0.4s;
+        display: inline-block;
+        border: 2px solid #000000;
         }
-        .button10 {        
-        color:white;
-        background-color: rgb(225,60,60);
+    .button101 {        
+        background-image: linear-gradient(to right,#141E30 0%,#243B55 90%);
+        color: white;
+        border: 2px solid #FFFFFF;
+        }
+    .button101:hover {
+        box-shadow: 0 5px 10px rgba(0,0 , 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.19);
+        color:black;
+        background-image: linear-gradient(to right,#FFFFFF 0%,#FFFFFF 100%);
+        border: 2px solid #000000;
+        }
+    .button101:active {
+        transform: translateY(10px);
+        }
+    .button10 {        
+        color:white;        
         padding: 15px 47px;
         font-size: 16px;
         cursor: pointer;
@@ -186,11 +201,13 @@
         font-weight: bold;
         position: absolute;
         bottom : 80px;
-        left: 200px;                
+        left: 200px;
+        transition-duration: 0.4s;
+        display: inline-block;
+        border: 2px solid #000000;
         }
     .button11 {        
-        color:white;
-        background-color: rgb(225,60,60);
+        color:white;        
         padding: 15px 32px;
         font-size: 16px;
         cursor: pointer;
@@ -199,12 +216,13 @@
         font-weight: bold;
         position: absolute;
         bottom : 80px;
-        left: 450px;                
+        left: 450px;
+        transition-duration: 0.4s;
+        display: inline-block;
+        border: 2px solid #000000;
         }
-
     .button12 {        
-        color:white;
-        background-color: rgb(225,60,60);
+        color:white;       
         padding: 15px 32px;
         font-size: 16px;
         cursor: pointer;
@@ -213,11 +231,13 @@
         font-weight: bold;
         position: absolute;
         bottom : 80px;
-        left: 700px;                
+        left: 700px;
+        transition-duration: 0.4s;
+        display: inline-block;
+        border: 2px solid #000000;
         }
    .button13 {        
-        color:white;
-        background-color: rgb(225,60,60);
+        color:white;        
         padding: 15px 55px;
         font-size: 16px;
         cursor: pointer;
@@ -226,11 +246,13 @@
         font-weight: bold;
         position: absolute;
         bottom : 80px;
-        left: 950px;                
+        left: 950px;
+        transition-duration: 0.4s;
+        display: inline-block;
+        border: 2px solid #000000;
         }
     .button14 {        
-        color:white;
-        background-color: rgb(225,60,60);
+        color:white;        
         padding: 15px 55px;
         font-size: 16px;
         cursor: pointer;
@@ -239,7 +261,36 @@
         font-weight: bold;
         position: absolute;
         bottom : 80px;
-        left: 1200px;                
+        left: 1200px;
+        transition-duration: 0.4s;
+        display: inline-block;
+        border: 2px solid #000000;
+        }
+    .button10:active {
+        transform: translateY(10px);
+        }
+    .button11:active {
+        transform: translateY(10px);
+        }
+    .button12:active {
+        transform: translateY(10px);
+        }
+    .button13:active {
+        transform: translateY(10px);
+        }
+    .button14:active {
+        transform: translateY(10px);
+        }
+    .button50 {        
+        background-image: linear-gradient(to right,#870000 0%,#190A05 100%);
+        color: white;
+        border: 2px solid #FFFFFF;
+        }
+    .button50:hover {
+        box-shadow: 0 10px 20px rgba(0,0 , 0, 0.2), 0 20px 30px 0 rgba(0, 0, 0, 0.19);
+        color:black;
+        background-image: linear-gradient(to right,#FFFFFF 0%,#FFFFFF 100%);
+        border: 2px solid #000000;
         }
     body {        
         background-position:center;
@@ -274,10 +325,10 @@
  </head>
   <body style="background-image:url('https://image.freepik.com/free-photo/vertical-shot-empty-road-middle-desert-beautiful-blue-sky_181624-2473.jpg');"> 
   <center><h1>Velocity values of stepper</h1>
-  <button class="button100" id="startVal" type="submit" value="start">OPEN</button>  
-  <button class="button100" id="buttonVal" type="submit" value="start">START/STOP MONITORING</button>  
-  <button class="button100" id="buttVal" type="submit" value="startdat">LOAD ---> DB,FILE</button>   
-  <button class="button100" id="disconnect" type="submit" value="disconnect">CLOSE</button> 
+  <button class="button100 button101" id="startVal" type="submit" value="start">OPEN</button>  
+  <button class="button100 button101" id="buttonVal" type="submit" value="start">START/STOP MONITORING</button>  
+  <button class="button100 button101" id="buttVal" type="submit" value="startdat">LOAD ---> DB,FILE</button>   
+  <button class="button100 button101" id="disconnect" type="submit" value="disconnect">CLOSE</button> 
   <body onload="startTime()"</body>
   <div class="body2" id="txt"></div>
   <body onload="startTime()"</body>
@@ -303,19 +354,19 @@
           <div id="log19"></div>
           <div id="log20"></div></h3>
   <form method="get" action="/tabs">
-        <button class="button10" type="submit">FILE, DATABASE</button>
+        <button class="button10 button50" type="submit">FILE, DATABASE</button>
   </form>
   <form method="get" action="/tabsrs">
-        <button class="button11" type="submit">ROTATIONAL SPEED</button>
+        <button class="button11 button50" type="submit">ROTATIONAL SPEED</button>
   </form>
   <form method="get" action="/tabsav">
-        <button class="button12" type="submit">ANGULAR VELOCITY</button>
+        <button class="button12 button50" type="submit">ANGULAR VELOCITY</button>
   </form>
   <form method="get" action="/tabsms">
-        <button class="button13" type="submit">MOTOR SPEED</button>
+        <button class="button13 button50" type="submit">MOTOR SPEED</button>
   </form>
   <form method="get" action="/tabsfr">
-        <button class="button14" type="submit">FREQUENCY</button>
+        <button class="button14 button50" type="submit">FREQUENCY</button>
   </form>
 
   <div class="footer">© 2020 POIT <b>Roman Kmotorka</b> All Rights Reserved</div>
