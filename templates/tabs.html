@@ -161,14 +161,7 @@
 
       $('form#emit').submit(function(event) {
           socket.emit('my_event', {value: $('#emit_value').val()});
-          return false; });
-//       $('#buttonVal').click(function(event) {
-//           //console.log($('#buttonVal').val());
-//           socket.emit('click_event', {value: $('#buttonVal').val()});
-//           return false; });
-//       $('form#disconnect').submit(function(event) {
-//           socket.emit('disconnect_request');
-//           return false; });   
+          return false; });  
       });
     </script>
   </head>
@@ -183,10 +176,7 @@
       text-align: center;
       background-color: black;
       font-size:135%;
-    }
-    .footer p {
-        padding-top: 1px;
-    }
+    }    
     h1 {
         text-align: center;
         font-size:250%;
@@ -233,6 +223,31 @@
     .button101:active {
         transform: translateY(5px);
         }
+     input[type=text]{
+        border: 2px solid #ccc;
+        padding: 8px 20px;
+        border-radius:4px;
+        box-sizing: border-box;        
+        }
+    input[type=text]:focus{
+        border: 2px solid #555;
+        }
+    input[type=submit]{
+        border: 2px solid #ccc;
+        padding: 8px 20px;
+        border-radius:4px;
+        box-sizing: border-box;
+        cursor: pointer;
+        }
+    input[type=submit]:focus{
+        border: 2px solid #555;
+        background-image: linear-gradient(to right,#FFFFFF 0%,#FFFFFF 100%);
+        )
+        }
+    input[type=submit]:hover{        
+        background-image: linear-gradient(to right,#FFFFFF 0%,#FFFFFF 100%);
+        )        
+        }
     </style>
 </head>
 <body>   
@@ -273,5 +288,3 @@
     <div class="footer">© 2020 POIT <b>Roman Kmotorka</b> All Rights Reserved</div> 
   </body>
 </html>
-
-

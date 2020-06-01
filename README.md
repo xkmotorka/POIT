@@ -1,2 +1,2 @@
 # POIT
-School project
+School project of Controlling the Stepper in SimulIDE

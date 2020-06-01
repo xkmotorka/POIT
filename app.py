@@ -40,12 +40,10 @@ x=0
 def background_thread(args):    
     count = 1    
     dataList = []
-    db = MySQLdb.connect(host=myhost,user=myuser,passwd=mypasswd,db=mydb)
-    
+    db = MySQLdb.connect(host=myhost,user=myuser,passwd=mypasswd,db=mydb)    
     maxRS=0
     minRS=100
-    criticalRS=0
-    
+    criticalRS=0    
     sumRS=0
     maxAV=0
     minAV=10.47
@@ -115,12 +113,7 @@ def background_thread(args):
                 read_ser=0
                 read_ser2=0
                 step=0
-                freq=0
-#             count += 1
-            if args:          
-              dbV = dict(args).get('db_value')
-            else:          
-              dbV = 'nieco'
+                freq=0            
               
             if count == 21 or count == 41 or count == 61 or count == 81 or count == 101 or count == 121 or count == 141 or count == 161 or count == 181 or count == 201 or count == 221 or count == 241 or count == 261 or count == 281 or count == 301:
                 dataDict600 = {
@@ -319,10 +312,8 @@ def background_thread(args):
                 sumRS+=float(read_ser)
                 sumAV+=float(read_ser2)
                 sumMS+=float(step)
-                sumFR+=float(freq)           
-              
-#                 print(args)
-                
+                sumFR+=float(freq)        
+               
                 if datab == 0:
                   dataDict1515 = {
                     "No": count, 
@@ -335,7 +326,8 @@ def background_thread(args):
                 else:
                   if len(dataList)>0:                
                     prem1515 = str(dataList).replace("'", "\"")
-                    print prem1515                
+                    print("\nDATA SAVED INTO FILE ALL.TXT AND DATABASE POIT:")
+                    print prem1515  
                     str1516 = str(prem1515)
                     str1517 = str1516 + str1515
                     fo1515 = open("static/files/ALL.txt","a+")
@@ -395,8 +387,7 @@ def background_thread(args):
                 socketio.emit('my_response',
                           {'data': float(read_ser), 'datahours': float(round((read_ser2),2)),'datastep': float(round((step),2)),'datafreq': float(round((freq),2)),'count': count},
                           namespace='/test')
-                count += 1                
-    #             print(read_ser)
+                count += 1               
         db.close
         socketio.sleep(2) 
 
@@ -454,8 +445,7 @@ def test_message(message5):
     session['date'] = d1
 
 @socketio.on('db_event', namespace='/test')
-def db_message(message):   
-#     session['db_value'] = message['value']
+def db_message(message):
     global datab
     if datab:        
         datab = 0
@@ -467,8 +457,7 @@ def db_message(message):
 @socketio.on('disconnect_request', namespace='/test')
 def disconnect_request():
     print("\nDISCONNECTED\nPOIT 2020 by Roman Kmotorka ")
-    os._exit(0)
-    
+    os._exit(0)    
 
 @socketio.on('connect', namespace='/test')
 def test_connect():
@@ -476,7 +465,6 @@ def test_connect():
     with thread_lock:
         if thread is None:
             thread = socketio.start_background_task(target=background_thread, args=session._get_current_object())            
-
 
 @socketio.on('click_event', namespace='/test')
 def db2_message(message2):
@@ -487,7 +475,6 @@ def db2_message(message2):
     else:
         connected = 1
         print("\nMONITORING STARTED")
-
         
 @socketio.on('start_event', namespace='/test')
 def db3_message(message3):
