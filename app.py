@@ -277,11 +277,7 @@ def background_thread(args):
                 criticalFR=0
                 sumFR=0
                 
-            if connected:
-                if args:          
-                    dbV = args.get('db_value')
-                else:          
-                    dbV = 'nieco'  
+            if connected:                 
                 if float(read_ser) > float(maxRS):
                     maxRS = read_ser
                 if float(read_ser) < float(minRS):
